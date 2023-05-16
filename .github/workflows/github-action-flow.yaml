@@ -1,0 +1,53 @@
+name: Docker Image CI
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Permission 
+      run: |
+        sudo chmod 666 /var/run/docker.sock
+        ls
+      
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+          
+    - name: Build an image for web app
+      run: |
+       cd image_for_web_server
+       docker build -t anu0104/phonebook-resultserver:latest .
+       docker push anu0104/phonebook-resultserver:latest
+       
+    - name: Build an image for result app
+      run: |
+       cd image_for_result_server
+       docker build -t anu0104/phonebook-resultserver:latest .
+       docker push anu0104/phonebook-resultserver:latest
+    
+    - name: Run kubernetes file to create the secrets and configMap
+      run: | 
+       cd kubernetes-manifests/secrets_configMap/
+       kubectl apply -f .
+ 
+    - name: Run kubernetes file to deploy database deployment.
+      run: | 
+       cd kubernetes-manifests/mysql_deployment/
+       kubectl apply -f .
+   
+    - name: Run kubernetes file to deploy web application.
+      run: | 
+       cd kubernetes-manifests/web_server/
+       kubectl apply -f .
+       
+    - name: Run kubernetes file to deploy result application.
+      run: | 
+       cd kubernetes-manifests/result_server/
+       kubectl apply -f .
