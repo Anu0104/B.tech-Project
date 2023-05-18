@@ -11,7 +11,7 @@ variable "cluster_version" {
 variable "cluster_role_name" {
   type        = string
   description = "name of the role which is attached to the cluster"
-  default     = "eks-cluster-role"
+  default     = "eks-cluster
 }
 variable "node_role_name" {
   type        = string
