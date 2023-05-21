@@ -23,8 +23,8 @@ jobs:
     - name: Build an image for web app
       run: |
        cd image_for_web_server
-       docker build -t anu0104/phonebook-resultserver:latest .
-       docker push anu0104/phonebook-resultserver:latest
+       docker build -t anu0104/phonebook-webserver:latest .
+       docker push anu0104/phonebook-webserver:latest
        
     - name: Build an image for result app
       run: |
