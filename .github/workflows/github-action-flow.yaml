@@ -23,14 +23,14 @@ jobs:
     - name: Build an image for web app
       run: |
        cd image_for_web_server
-       docker build -t anu0104/phonebook-resultserver:latest .
-       docker push anu0104/phonebook-resultserver:latest
+       docker build -t anu0104/phonebook-resultserver:v1 .
+       docker push anu0104/phonebook-resultserver:v1
        
     - name: Build an image for result app
       run: |
        cd image_for_result_server
-       docker build -t anu0104/phonebook-resultserver:latest .
-       docker push anu0104/phonebook-resultserver:latest
+       docker build -t anu0104/phonebook-resultserver:v1 .
+       docker push anu0104/phonebook-resultserver:v1
     
     - name: Run kubernetes file to create the secrets and configMap
       run: | 
