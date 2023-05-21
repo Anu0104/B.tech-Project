@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: phonebook-app
-          image: anu0104/phonebook-webserver
+          image: anu0104/phonebook-webserver:latest
           ports:
           - containerPort: 80
           env:
